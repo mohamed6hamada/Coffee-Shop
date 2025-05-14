@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشاويس - مقهى متميز</title>
+    <style>
+        :root {
+            --main-color: #5D4037;
+            --secondary-color: #8D6E63;
+            --accent-color: #FFCA28;
+            --text-color: #3E2723;
+            --light-bg: #EFEBE9;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--main-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .menu-button {
+            background-color: var(--main-color);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-button:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        
+        .menu-button.active {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--main-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .menu-item {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .item-image {
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .item-info {
+            padding: 1rem;
+        }
+        
+        .item-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--main-color);
+        }
+        
+        .item-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--main-color);
+            margin-top: 0.5rem;
+            display: inline-block;
+            background-color: var(--accent-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+        }
+        
+        .menu-section {
+            display: none;
+        }
+        
+        .menu-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-indicator {
+            text-align: center;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+        
+        footer {
+            background-color: var(--main-color);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links i {
+            font-size: 1.5rem;
+            color: var(--white);
+            transition: color 0.3s ease;
+        }
+        
+        .social-links i:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .menu-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">الشاويس</div>
+        <div class="tagline">مذاق القهوة الأصيل</div>
+    </header>
+    
+    <nav>
+        <div class="menu-container">
+            <button class="menu-button active" data-target="turkish-coffee">قهوة تركي</button>
+            <button class="menu-button" data-target="hot-coffee">قهوة ساخنة</button>
+            <button class="menu-button" data-target="other-hot">مشروبات ساخنة أخرى</button>
+            <button class="menu-button" data-target="cold-coffee">قهوة باردة</button>
+            <button class="menu-button" data-target="juices">عصائر طبيعية</button>
+            <button class="menu-button" data-target="special-drinks">مشروبات مميزة</button>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="menu-section active" id="turkish-coffee">
+            <h2 class="section-title">قهوة تركي</h2>
+            <div class="section-indicator">المشروبات الأصيلة والتقليدية</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قهوة تركي سادة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قهوة تركي سادة</h3>
+                        <p class="item-desc">قهوة تركية أصيلة محضرة على الطريقة التقليدية</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قهوة تركي مظبوط" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قهوة تركي مظبوط</h3>
+                        <p class="item-desc">قهوة تركية متوسطة السكر تناسب جميع الأذواق</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قهوة تركي زيادة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قهوة تركي زيادة</h3>
+                        <p class="item-desc">قهوة تركية محلاة بالكامل لمحبي المذاق الحلو</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قهوة تركي وش" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قهوة تركي وش</h3>
+                        <p class="item-desc">قهوة تركية خفيفة السكر لمن يفضل مذاق القهوة الأصلي</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قهوة فرنساوي" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قهوة فرنساوي</h3>
+                        <p class="item-desc">قهوة بالحليب على الطريقة الفرنسية الكلاسيكية</p>
+                        <div class="item-price">٢٠ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section" id="hot-coffee">
+            <h2 class="section-title">قهوة ساخنة</h2>
+            <div class="section-indicator">مشروبات القهوة العالمية الساخنة</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="نسكافيه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">نسكافيه</h3>
+                        <p class="item-desc">قهوة سريعة التحضير بنكهة غنية ومميزة</p>
+                        <div class="item-price">٢٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="كابتشينو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">كابتشينو</h3>
+                        <p class="item-desc">إسبريسو مع حليب مبخر ورغوة كريمية</p>
+                        <div class="item-price">٣٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="لاتيه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">لاتيه</h3>
+                        <p class="item-desc">إسبريسو ممزوج بالحليب الساخن ورغوة خفيفة</p>
+                        <div class="item-price">٣٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="إسبريسو سنجل" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">إسبريسو سنجل</h3>
+                        <p class="item-desc">جرعة مركزة من القهوة المضغوطة بنكهة قوية</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="إسبريسو دبل" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">إسبريسو دبل</h3>
+                        <p class="item-desc">جرعة مزدوجة من الإسبريسو لمحبي النكهة القوية</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="موكا" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">موكا</h3>
+                        <p class="item-desc">إسبريسو بالحليب والشوكولاتة الداكنة</p>
+                        <div class="item-price">٤٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ماكياتو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ماكياتو</h3>
+                        <p class="item-desc">إسبريسو مع لمسة خفيفة من رغوة الحليب</p>
+                        <div class="item-price">٣٨ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="أمريكانو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">أمريكانو</h3>
+                        <p class="item-desc">إسبريسو ممزوج بالماء الساخن بنكهة متوازنة</p>
+                        <div class="item-price">٣٢ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section" id="other-hot">
+            <h2 class="section-title">مشروبات ساخنة أخرى</h2>
+            <div class="section-indicator">مشروبات ساخنة متنوعة من غير القهوة</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="شاي أحمر عادي" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">شاي أحمر عادي</h3>
+                        <p class="item-desc">شاي أحمر كلاسيكي بنكهة غنية ومنعشة</p>
+                        <div class="item-price">١٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="شاي كركديه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">شاي كركديه</h3>
+                        <p class="item-desc">شاي الكركديه المنعش بطعمه المميز</p>
+                        <div class="item-price">١٢ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="شاي بالنعناع" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">شاي بالنعناع</h3>
+                        <p class="item-desc">شاي أحمر مع النعناع الطازج المنعش</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="شاي أخضر" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">شاي أخضر</h3>
+                        <p class="item-desc">شاي أخضر طبيعي غني بمضادات الأكسدة</p>
+                        <div class="item-price">١٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="يانسون" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">يانسون</h3>
+                        <p class="item-desc">مشروب اليانسون الدافئ بنكهته المميزة</p>
+                        <div class="item-price">١٢ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="نعناع" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">نعناع</h3>
+                        <p class="item-desc">مشروب النعناع المنعش والمهدئ</p>
+                        <div class="item-price">١٢ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="قرفة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">قرفة</h3>
+                        <p class="item-desc">مشروب القرفة الدافئ بنكهة غنية وعطرية</p>
+                        <div class="item-price">١٢ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="سحلب" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">سحلب</h3>
+                        <p class="item-desc">سحلب ساخن محضر بالحليب والمكسرات</p>
+                        <div class="item-price">٢٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="هوت شوكليت" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">هوت شوكليت</h3>
+                        <p class="item-desc">شوكولاتة ساخنة غنية وكريمية</p>
+                        <div class="item-price">٢٥ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section" id="cold-coffee">
+            <h2 class="section-title">قهوة باردة</h2>
+            <div class="section-indicator">مشروبات القهوة الباردة المنعشة</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="آيس كوفي" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">آيس كوفي</h3>
+                        <p class="item-desc">قهوة باردة منعشة محضرة بطريقة خاصة</p>
+                        <div class="item-price">٣٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="آيس لاتيه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">آيس لاتيه</h3>
+                        <p class="item-desc">قهوة إسبريسو باردة مع الحليب والثلج</p>
+                        <div class="item-price">٤٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="فرابيه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">فرابيه</h3>
+                        <p class="item-desc">قهوة مثلجة مخفوقة على الطريقة اليونانية</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="آيس موكا" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">آيس موكا</h3>
+                        <p class="item-desc">قهوة باردة مع شوكولاتة وحليب مثلج</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="كولد برو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">كولد برو</h3>
+                        <p class="item-desc">قهوة منقوعة على البارد لمدة 24 ساعة</p>
+                        <div class="item-price">٥٠ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section" id="juices">
+            <h2 class="section-title">عصائر طبيعية</h2>
+            <div class="section-indicator">عصائر ومشروبات طبيعية منعشة</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="برتقال فريش" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">برتقال فريش</h3>
+                        <p class="item-desc">عصير برتقال طازج غني بفيتامين سي</p>
+                        <div class="item-price">٢٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="مانجو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">مانجو</h3>
+                        <p class="item-desc">عصير مانجو طبيعي منعش</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="جوافة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">جوافة</h3>
+                        <p class="item-desc">عصير جوافة طبيعي بطعم مميز</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="رمان" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">رمان</h3>
+                        <p class="item-desc">عصير رمان طازج غني بمضادات الأكسدة</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ليمون بالنعناع" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ليمون بالنعناع</h3>
+                        <p class="item-desc">عصير ليمون منعش مع النعناع الطازج</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="فراولة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">فراولة</h3>
+                        <p class="item-desc">عصير فراولة طازج وحلو المذاق</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="كوكتيلات فواكه" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">كوكتيلات فواكه</h3>
+                        <p class="item-desc">مزيج منعش من الفواكه الموسمية الطازجة</p>
+                        <div class="item-price">٣٠ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="menu-section" id="special-drinks">
+            <h2 class="section-title">مشروبات متطورة</h2>
+            <div class="section-indicator">Smoothies وMilkshakes</div>
+            
+            <div class="menu-items">
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ميلك شيك شوكولاتة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ميلك شيك شوكولاتة</h3>
+                        <p class="item-desc">مشروب كريمي غني بنكهة الشوكولاتة</p>
+                        <div class="item-price">٤٥ جنيه</div>
+
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ميلك شيك فانيليا" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ميلك شيك فانيليا</h3>
+                        <p class="item-desc">مشروب كريمي بنكهة الفانيليا الناعمة</p>
+                        <div class="item-price">٤٥ جنيه</div>
+
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ميلك شيك فراولة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ميلك شيك فراولة</h3>
+                        <p class="item-desc">مشروب كريمي منعش بنكهة الفراولة الطازجة</p>
+                        <div class="item-price">٤٥ جنيه</div>
+
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="ميلك شيك أوريو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">ميلك شيك أوريو</h3>
+                        <p class="item-desc">مشروب كريمي مع قطع بسكويت الأوريو</p>
+                         <div class="item-price">٤٥ جنيه</div>
+ 
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="سموذي فواكه مشكلة" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">سموذي فواكه مشكلة</h3>
+                        <p class="item-desc">مزيج منعش من الفواكه المشكلة مع الثلج</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="سموذي مانجو" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">سموذي مانجو</h3>
+                        <p class="item-desc">مشروب منعش من المانجو الطازجة مع الثلج</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <!-- <img src="/api/placeholder/400/320" alt="سموذي موز" class="item-image"> -->
+                    <div class="item-info">
+                        <h3 class="item-title">سموذي موز</h3>
+                        <p class="item-desc">مشروب كريمي منعش من الموز مع الحليب والثلج</p>
+                        <div class="item-price">٤٥ جنيه</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>مقهى الشاويس</h3>
+                <p>تجربة قهوة فريدة من نوعها بنكهات متنوعة تناسب جميع الأذواق</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <p>العنوان: بنها، الشارع الرئيسي</p>
+                <p>الهاتف: 01227604383</p>
+                <!-- <p>البريد الإلكتروني: info@alshawees.com</p> -->
+            </div>
+            
+            <div class="footer-section">
+                <h3>ساعات العمل</h3>
+                <p>من السبت إلى الخميس: 8:00 صباحاً - 12:00 مساءً</p>
+                <p>الجمعة: 1:00 ظهراً - 12:00 مساءً</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>تابعنا</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2025 مقهى الشاويس - جميع الحقوق محفوظة
+        </div>
+    </footer>
+    
+    <script>
+        // JavaScript to handle the menu navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButtons = document.querySelectorAll('.menu-button');
+            const menuSections = document.querySelectorAll('.menu-section');
+            
+            menuButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    menuButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Hide all menu sections
+                    menuSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show the selected menu section
+                    const targetId = this.getAttribute('data-target');
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Smooth scroll to the section
+                    document.getElementById(targetId).scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                });
+            });
+            
+            // Add animations for menu items
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            menuItems.forEach(item => {
+                item.style.opacity = 0;
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+</html>
